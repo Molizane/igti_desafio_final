@@ -1,0 +1,62 @@
+.border {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.flexRow2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.flexRow3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.day {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-right: 10px;
+  padding-left: 10px;
+}
+
+.movement {
+  font-size: 1.2rem;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+}
+
+.value {
+  text-align: right;
+  align-content: right;
+  font-size: 1.2rem;
+  margin-right: 60px;
+  font-weight: bold;
+}
+
+.tools {
+  text-align: center;
+  align-content: right;
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+i {
+  cursor: pointer;
+}
