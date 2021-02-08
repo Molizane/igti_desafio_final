@@ -8,6 +8,7 @@ import Functions from './components/Functions.js';
 import Movements from './components/Movements.js';
 import Navigator from './components/Navigator.js';
 import ModalForm from './components/ModalForm.js';
+import Spinner from './components/Spinner.js';
 
 const MONTHS = [
   { monthName: 'Jan' },
@@ -27,6 +28,7 @@ const MONTHS = [
 export default function App() {
   dotenv.config();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [periods, setPeriods] = useState([]);
   const [movements, setMovements] = useState({ length: 0, transactions: [] });
   const [filteredMovements, setFilteredMovements] = useState({ length: 0, transactions: [] });
@@ -63,6 +65,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
+
     const getPeriod = async () => {
       const movements = await api.getPeriod(currentPeriod.period);
 
@@ -85,6 +89,7 @@ export default function App() {
       setQtMovements(length);
       setCredit(credit);
       setDebit(debit);
+      setIsLoading(false);
     };
 
     getPeriod();
@@ -143,7 +148,7 @@ export default function App() {
     remove();
   };
 
-  const handleSave = (transaction, type, _id) => {
+  const handleSave = (type, _id, transaction) => {
     if (type === 'I') {
       const insert = async () => {
         await api.insert(transaction);
@@ -171,6 +176,7 @@ export default function App() {
     <div className="container" align="center" id="Panel">
       <h3>Bootcamp Full Stack - Desafio Final</h3>
       <h4>Controle Finaceiro Pessoal</h4>
+      {isLoading && <Spinner></Spinner>}
       {!isEditting && currentPeriod !== '' && (
         <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
           {periods}
@@ -187,7 +193,11 @@ export default function App() {
           {filteredMovements}
         </Movements>
       )}
-      {isEditting && <ModalForm editType={editType} onSave={handleSave} transaction={transaction} onCancel={handleFormClosed} />}
+      {isEditting && (
+        <ModalForm editType={editType} onSave={handleSave} onCancel={handleFormClosed}>
+          {transaction}
+        </ModalForm>
+      )}
     </div>
   );
 }

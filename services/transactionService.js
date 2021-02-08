@@ -97,14 +97,14 @@ exports.update = async (req, res) => {
   try {
     const id = req.query.id;
 
-    console.log(req.params);
-
     if (!id) {
+      console.log('É necessário informar o parâmetro "id"');
       res.status(400).send({ error: 'É necessário informar o parâmetro "id"' });
       return;
     }
 
     if (!req.body) {
+      console.log('Transação não informada.');
       res.status(400).send({ error: 'Transação não informada.' });
       return;
     }

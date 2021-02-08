@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-export default function ModalForm({ transaction, editType, onSave, onCancel }) {
+export default function ModalForm({ children: transaction, editType, onSave, onCancel }) {
   const [currTransaction] = useState(transaction);
   const [currEditType] = useState(editType);
 
@@ -89,13 +89,12 @@ export default function ModalForm({ transaction, editType, onSave, onCancel }) {
       return;
     }
 
-    let dt = new Date(date);
-
-    const year = dt.getFullYear();
-    const month = dt.getMonth() + 1;
-    const day = dt.getDate();
+    const year = date.substring(0, 4);
+    const month = date.substring(5, 7);
+    const day = date.substring(8, 10);
 
     const transaction = {
+      ...currTransaction,
       description,
       value,
       category,
@@ -105,7 +104,7 @@ export default function ModalForm({ transaction, editType, onSave, onCancel }) {
       type,
     };
 
-    onSave(editType, transaction, _id);
+    onSave(editType, _id, transaction);
   };
 
   const handleModalClose = () => {
