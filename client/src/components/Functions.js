@@ -26,7 +26,7 @@ const styles = {
   },
 
   button: {
-    width: '240px',
+    width: '250px',
   },
 
   flexRow: {
