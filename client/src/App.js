@@ -65,49 +65,37 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    console.log('useEffect [currentPeriod, refresh]');
     setIsLoading(true);
 
     const getPeriod = async () => {
       const movements = await api.getPeriod(currentPeriod.period);
-
-      let { length, transactions } = movements;
-
-      transactions = transactions.sort((a, b) => a.yearMonthDay.localeCompare(b.yearMonthDay));
-
-      const credit = transactions.filter((trans) => trans.type === '+').reduce((acc, curr) => acc + curr.value, 0);
-      const debit = transactions.filter((trans) => trans.type === '-').reduce((acc, curr) => acc + curr.value, 0);
-
-      let filtered;
-
-      if (currentFilter.trim() === '') {
-        filtered = Object.assign([], movements);
-      } else {
-        filtered = transactions.filter((transaction) => transaction.description.toUpperCase().indexOf(currentFilter.toUpperCase()) !== -1);
-        filtered = { length: filtered.length, transactions: filtered };
-      }
-
-      setMovements(movements);
-      setFilteredMovements(filtered);
-      setQtMovements(length);
-      setCredit(credit);
-      setDebit(debit);
+      const transactions = movements.transactions.sort((a, b) => a.yearMonthDay.localeCompare(b.yearMonthDay));
+      setMovements({ ...movements, transactions });
       setIsLoading(false);
     };
 
     getPeriod();
-  }, [currentPeriod, refresh, currentFilter]);
+  }, [currentPeriod, refresh]);
 
   useEffect(() => {
+    console.log('useEffect [currentFilter, movements]');
     let transactions;
 
     if (currentFilter.trim() === '') {
       transactions = Object.assign([], movements);
     } else {
       transactions = movements.transactions.filter((transaction) => transaction.description.toUpperCase().indexOf(currentFilter.toUpperCase()) !== -1);
-
       transactions = { length: transactions.length, transactions };
     }
 
+    const { length } = transactions;
+    const credit = transactions.transactions.filter((trans) => trans.type === '+').reduce((acc, curr) => acc + curr.value, 0);
+    const debit = transactions.transactions.filter((trans) => trans.type === '-').reduce((acc, curr) => acc + curr.value, 0);
+
+    setQtMovements(length);
+    setCredit(credit);
+    setDebit(debit);
     setFilteredMovements(transactions);
   }, [currentFilter, movements]);
 
