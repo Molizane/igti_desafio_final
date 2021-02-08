@@ -70,7 +70,9 @@ export default function App() {
     const getPeriod = async () => {
       const movements = await api.getPeriod(currentPeriod.period);
 
-      const { length, transactions } = movements;
+      let { length, transactions } = movements;
+
+      transactions = transactions.sort((a, b) => a.yearMonthDay.localeCompare(b.yearMonthDay));
 
       const credit = transactions.filter((trans) => trans.type === '+').reduce((acc, curr) => acc + curr.value, 0);
       const debit = transactions.filter((trans) => trans.type === '-').reduce((acc, curr) => acc + curr.value, 0);

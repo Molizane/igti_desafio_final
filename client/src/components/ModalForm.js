@@ -113,14 +113,17 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
 
   const handleTypeChange = (event) => {
     setType(event.target.value);
+    setErrorMessage('');
   };
 
   const handleDescription = (event) => {
     setDescription(event.target.value);
+    setErrorMessage('');
   };
 
   const handleCategory = (event) => {
     setCategory(event.target.value);
+    setErrorMessage('');
   };
 
   const handleValue = (event) => {
@@ -139,10 +142,12 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
     }
 
     setValue(v);
+    setErrorMessage('');
   };
 
   const handleDate = (event) => {
     setDate(event.target.value);
+    setErrorMessage('');
   };
 
   return (

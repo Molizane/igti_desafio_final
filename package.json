@@ -1,5 +1,5 @@
 {
-  "name": "bootcamp-full-stack-desafio-final",
+  "name": "molizane-desafio-final",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -14,8 +14,8 @@
     "nodemon": "2.0.4"
   },
   "scripts": {
-    "server": "nodemon index.js",
-    "start": "nodemon index.js",
+    "server": "node index.js",
+    "start": "node index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "nodemonConfig": {
