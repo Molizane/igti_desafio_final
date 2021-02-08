@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import dotenv from 'dotenv';
 
+import * as api from './api/apiService.js';
+
 import Balance from './components/Balance.js';
 import Functions from './components/Functions.js';
 import Movements from './components/Movements.js';
 import Navigator from './components/Navigator.js';
-import * as api from './api/apiService.js';
+import ModalForm from './components/ModalForm.js';
 
 const MONTHS = [
   { monthName: 'Jan' },
@@ -25,8 +27,6 @@ const MONTHS = [
 export default function App() {
   dotenv.config();
 
-  //console.log(process.env.APIURL);
-
   const [periods, setPeriods] = useState([]);
   const [movements, setMovements] = useState({ length: 0, transactions: [] });
   const [filteredMovements, setFilteredMovements] = useState({ length: 0, transactions: [] });
@@ -36,10 +36,11 @@ export default function App() {
   const [debit, setDebit] = useState(0);
   const [currentFilter, setCurrentFilter] = useState('');
   const [refresh, setRefresh] = useState(false);
+  const [isEditting, setIsEditting] = useState(false);
+  const [transaction, setTransaction] = useState({});
+  const [editType, setEditType] = useState('');
 
   useEffect(() => {
-    console.log('Page Load');
-
     const p = [];
     const today = new Date();
     const thisYear = today.getYear() + 1900;
@@ -75,9 +76,7 @@ export default function App() {
       if (currentFilter.trim() === '') {
         filtered = Object.assign([], movements);
       } else {
-        filtered = transactions.filter(
-          (transaction) => transaction.description.toUpperCase().indexOf(currentFilter.toUpperCase()) !== -1
-        );
+        filtered = transactions.filter((transaction) => transaction.description.toUpperCase().indexOf(currentFilter.toUpperCase()) !== -1);
         filtered = { length: filtered.length, transactions: filtered };
       }
 
@@ -89,7 +88,7 @@ export default function App() {
     };
 
     getPeriod();
-  }, [currentPeriod, refresh]);
+  }, [currentPeriod, refresh, currentFilter]);
 
   useEffect(() => {
     let transactions;
@@ -97,15 +96,13 @@ export default function App() {
     if (currentFilter.trim() === '') {
       transactions = Object.assign([], movements);
     } else {
-      transactions = movements.transactions.filter(
-        (transaction) => transaction.description.toUpperCase().indexOf(currentFilter.toUpperCase()) !== -1
-      );
+      transactions = movements.transactions.filter((transaction) => transaction.description.toUpperCase().indexOf(currentFilter.toUpperCase()) !== -1);
 
       transactions = { length: transactions.length, transactions };
     }
 
     setFilteredMovements(transactions);
-  }, [currentFilter]);
+  }, [currentFilter, movements]);
 
   const handleChangePeriod = (period) => {
     if (period === '+' || period === '-') {
@@ -125,15 +122,19 @@ export default function App() {
     setCurrentFilter(text);
   };
 
-  const handleAddTransaction = () => {
-    console.log('handleAddTransaction');
+  const handleInsert = () => {
+    setEditType('I');
+    setTransaction({});
+    setIsEditting(true);
   };
 
-  const handleEditButtonClick = (transaction) => {
-    console.log(transaction);
+  const handleEdit = (transaction) => {
+    setEditType('E');
+    setTransaction(transaction);
+    setIsEditting(true);
   };
 
-  const handleDeleteButtonClick = ({ _id }) => {
+  const handleDelete = ({ _id }) => {
     const remove = async () => {
       await api.remove(_id);
       setRefresh(!refresh);
@@ -142,24 +143,51 @@ export default function App() {
     remove();
   };
 
+  const handleSave = (transaction, type, _id) => {
+    if (type === 'I') {
+      const insert = async () => {
+        await api.insert(transaction);
+        setRefresh(!refresh);
+      };
+
+      insert();
+    } else {
+      const update = async () => {
+        await api.update(transaction, _id);
+        setRefresh(!refresh);
+      };
+
+      update();
+    }
+
+    setIsEditting(false);
+  };
+
+  const handleFormClosed = () => {
+    setIsEditting(false);
+  };
+
   return (
-    <div className="container" align="center">
+    <div className="container" align="center" id="Panel">
       <h3>Bootcamp Full Stack - Desafio Final</h3>
-      <span>Controle Finaceiro Pessoal</span>
-      {currentPeriod !== '' && (
+      <h4>Controle Finaceiro Pessoal</h4>
+      {!isEditting && currentPeriod !== '' && (
         <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
           {periods}
         </Navigator>
       )}
-      <Balance>{{ qtMovements, credit, debit }}</Balance>
-      <Functions onSearch={handleSearch} onAddTransaction={handleAddTransaction}>
-        {currentFilter}
-      </Functions>
-      {movements.length > 0 && (
-        <Movements onEditClick={handleEditButtonClick} onDeleteClick={handleDeleteButtonClick}>
+      {!isEditting && <Balance>{{ qtMovements, credit, debit }}</Balance>}
+      {!isEditting && (
+        <Functions onSearch={handleSearch} onAddTransaction={handleInsert}>
+          {currentFilter}
+        </Functions>
+      )}
+      {!isEditting && movements.length > 0 && (
+        <Movements onEditClick={handleEdit} onDeleteClick={handleDelete}>
           {filteredMovements}
         </Movements>
       )}
+      {isEditting && <ModalForm editType={editType} onSave={handleSave} transaction={transaction} onCancel={handleFormClosed} />}
     </div>
   );
 }

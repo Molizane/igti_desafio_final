@@ -28,7 +28,7 @@ export default function Balance({ children }) {
       </div>
       <div style={styles.styleFieds}>
         <span>Despesas:</span>
-        <span style={{ ...styles.styleValues, color: '#b71c1c   ' }}>R$ {formatNumberFloat(debit)}</span>
+        <span style={{ ...styles.styleValues, color: '#b71c1c' }}>R$ {formatNumberFloat(debit)}</span>
       </div>
       <div style={{ ...styles.styleFieds, marginRight: '5px', alignItems: 'right' }} className="right">
         <span>Saldo: </span>
