@@ -151,8 +151,8 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
   };
 
   return (
-    <div style={{ margin: '10px' }}>
-      <Modal isOpen={true}>
+    <div style={styles.form}>
+      <Modal isOpen={true} style={modalStyles}>
         <div style={styles.flexRow}>
           <span style={styles.title}>{`${editType === 'I' ? 'Inclus' : 'Alteraç'}ão de lançamento`}</span>
           <button className="waves-effect waves-lights btn red dark-4" onClick={handleModalClose}>
@@ -210,6 +210,17 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
   );
 }
 
+const modalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
 const styles = {
   flexRow: {
     display: 'flex',
@@ -224,8 +235,8 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '30px',
-    marginTop: '30px',
+    marginBottom: '40px',
+    marginTop: '10px',
   },
 
   data: {
@@ -253,4 +264,6 @@ const styles = {
     color: '#00897b',
     fontWeight: 'bold',
   },
+
+  form: { margin: '10px', zIndex: 2 },
 };

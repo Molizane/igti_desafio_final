@@ -16,7 +16,6 @@ export default function Spinner() {
           </div>
         </div>
       </div>
-
       <span style={{ marginLeft: '10px', fontSize: '1.2rem' }}>Aguarde...</span>
     </div>
   );
@@ -28,6 +27,6 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '10px',
+    margin: '0 auto',
   },
 };

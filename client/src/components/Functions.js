@@ -27,6 +27,7 @@ const styles = {
 
   button: {
     width: '250px',
+    zIndex: 0,
   },
 
   flexRow: {
@@ -35,5 +36,6 @@ const styles = {
     alignItems: 'left',
     justifyContent: 'Left',
     padding: '5px',
+    zIndex: 0,
   },
 };

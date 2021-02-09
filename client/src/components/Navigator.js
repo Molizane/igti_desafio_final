@@ -26,6 +26,7 @@ export default function Navigator({ children: periods, period, onChangePeriod })
     <div className="container" style={styles.flexRow}>
       <button
         className="waves-effect waves-light btn teal darken-1"
+        style={{ zIndex: 0 }}
         onClick={handlePreviousPeriod}
         disabled={period.period.trim() === '2019-01'}
       >
@@ -38,6 +39,7 @@ export default function Navigator({ children: periods, period, onChangePeriod })
       </div>
       <button
         className="waves-effect waves-light btn teal darken-1"
+        style={{ zIndex: 0 }}
         onClick={handleNextPeriod}
         disabled={period.period.trim() === '2021-12'}
       >

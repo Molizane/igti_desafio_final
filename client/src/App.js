@@ -167,18 +167,16 @@ export default function App() {
       <h3>Bootcamp Full Stack - Desafio Final</h3>
       <h4>Controle Finaceiro Pessoal</h4>
       {isLoading && <Spinner></Spinner>}
-      {!isEditting && currentPeriod !== '' && (
+      {currentPeriod !== '' && (
         <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
           {periods}
         </Navigator>
       )}
-      {!isEditting && <Balance>{{ qtMovements, credit, debit }}</Balance>}
-      {!isEditting && (
-        <Functions onSearch={handleSearch} onAddTransaction={handleInsert}>
-          {currentFilter}
-        </Functions>
-      )}
-      {!isEditting && movements.length > 0 && (
+      <Balance>{{ qtMovements, credit, debit }}</Balance>
+      <Functions onSearch={handleSearch} onAddTransaction={handleInsert}>
+        {currentFilter}
+      </Functions>
+      {movements.length > 0 && (
         <Movements onEditClick={handleEdit} onDeleteClick={handleDelete}>
           {filteredMovements}
         </Movements>
