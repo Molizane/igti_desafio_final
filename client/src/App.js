@@ -167,7 +167,7 @@ export default function App() {
       <h3>Bootcamp Full Stack - Desafio Final</h3>
       <h4>Controle Finaceiro Pessoal</h4>
       {isLoading && <Spinner></Spinner>}
-      {currentPeriod !== '' && (
+      {currentPeriod && (
         <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
           {periods}
         </Navigator>
