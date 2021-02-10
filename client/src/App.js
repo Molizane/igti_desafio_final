@@ -42,6 +42,7 @@ export default function App() {
   const [isEditting, setIsEditting] = useState(false);
   const [needConfirm, setNeedConfirm] = useState(false);
   const [transaction, setTransaction] = useState({});
+  const [id, setId] = useState(0);
   const [editType, setEditType] = useState('');
 
   useEffect(() => {
@@ -132,6 +133,11 @@ export default function App() {
     setIsEditting(true);
   };
 
+  const handleConfirmDelete = ({ _id }) => {
+    setId(_id);
+    setNeedConfirm(true);
+  };
+
   const handleDelete = ({ _id }) => {
     const remove = async () => {
       await api.remove(_id);
@@ -139,6 +145,7 @@ export default function App() {
     };
 
     remove();
+    setNeedConfirm(false);
   };
 
   const handleSave = (type, _id, transaction) => {
@@ -165,6 +172,10 @@ export default function App() {
     setIsEditting(false);
   };
 
+  const handleCancel = () => {
+    setNeedConfirm(false);
+  };
+
   return (
     <>
       <div style={styles.flexRow} id="mainform">
@@ -182,7 +193,7 @@ export default function App() {
         </div>
         {movements.length > 0 && (
           <div className="container" style={styles.bottomDiv}>
-            <Movements onEditClick={handleEdit} onDeleteClick={handleDelete}>
+            <Movements onEditClick={handleEdit} onDeleteClick={handleConfirmDelete}>
               {filteredMovements}
             </Movements>
           </div>
@@ -192,7 +203,11 @@ export default function App() {
             {transaction}
           </ModalForm>
         )}
-        {needConfirm && <ModalDialog>Confirme a exclusão:</ModalDialog>}
+        {needConfirm && (
+          <ModalDialog id={id} onConfirm={handleDelete} onCancel={handleCancel}>
+            Confirme a exclusão:
+          </ModalDialog>
+        )}
       </div>
     </>
   );

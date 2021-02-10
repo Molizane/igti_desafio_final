@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-export default function ModalDialog({ children: message, onConfirm, onCancel }) {
+export default function ModalDialog({ children: message, id, onConfirm, onCancel }) {
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -22,13 +22,16 @@ export default function ModalDialog({ children: message, onConfirm, onCancel }) 
   };
 
   const handleConfirm = () => {
-    onConfirm(null);
+    onConfirm({ _id: id });
   };
 
   return (
     <Modal disablePortal isOpen={true} style={styles.modalStyle}>
       <div style={styles.flexRow}>
         <span style={styles.title}>Atenção:</span>
+      </div>
+      <div style={styles.flexRow}>
+        <span style={styles.title}>{message}</span>
       </div>
       <div style={styles.flexRow}>
         <button className="waves-effect waves-light btn green dark-4" onClick={handleConfirm}>
@@ -52,7 +55,7 @@ const styles = {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
     },
-    overlay: { zIndex: 1000 },
+    overlay: { zIndex: 1200 },
   },
 
   flexRow: {
