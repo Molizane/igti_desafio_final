@@ -9,6 +9,7 @@ import Movements from './components/Movements.js';
 import Navigator from './components/Navigator.js';
 import ModalForm from './components/ModalForm.js';
 import Spinner from './components/Spinner.js';
+import ModalDialog from './components/ModalDialog.js';
 
 const MONTHS = [
   { monthName: 'Jan' },
@@ -39,6 +40,7 @@ export default function App() {
   const [currentFilter, setCurrentFilter] = useState('');
   const [refresh, setRefresh] = useState(false);
   const [isEditting, setIsEditting] = useState(false);
+  const [needConfirm, setNeedConfirm] = useState(false);
   const [transaction, setTransaction] = useState({});
   const [editType, setEditType] = useState('');
 
@@ -190,6 +192,7 @@ export default function App() {
             {transaction}
           </ModalForm>
         )}
+        {needConfirm && <ModalDialog>Confirme a exclusão:</ModalDialog>}
       </div>
     </>
   );
