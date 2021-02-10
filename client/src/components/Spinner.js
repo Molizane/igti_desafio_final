@@ -26,7 +26,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    margin: '0 auto',
+    marginRight: '-50%',
+    float: 'left',
   },
 };

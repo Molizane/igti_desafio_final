@@ -151,7 +151,7 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
   };
 
   return (
-    <Modal disablePortal isOpen={true} style={modalStyles}>
+    <Modal disablePortal isOpen={true} style={styles.modalStyle}>
       <div style={styles.flexRow}>
         <span style={styles.title}>{`${editType === 'I' ? 'Inclus' : 'Alteraç'}ão de lançamento`}</span>
         <button className="waves-effect waves-lights btn red dark-4" onClick={handleModalClose}>
@@ -208,19 +208,18 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
   );
 }
 
-const modalStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  overlay: { zIndex: 1000 },
-};
-
 const styles = {
+  modalStyle: {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+    overlay: { zIndex: 1000 },
+  },
   flexRow: {
     display: 'flex',
     flexDirection: 'row',

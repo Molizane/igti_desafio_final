@@ -28,7 +28,7 @@ export default function Navigator({ children: periods, period, onChangePeriod })
         className="waves-effect waves-light btn teal darken-1"
         style={{ zIndex: 0 }}
         onClick={handlePreviousPeriod}
-        disabled={period.period.trim() === '2019-01'}
+        disabled={period && period.period.trim() === '2019-01'}
       >
         {'<'}
       </button>
@@ -41,7 +41,7 @@ export default function Navigator({ children: periods, period, onChangePeriod })
         className="waves-effect waves-light btn teal darken-1"
         style={{ zIndex: 0 }}
         onClick={handleNextPeriod}
-        disabled={period.period.trim() === '2021-12'}
+        disabled={period && period.period.trim() === '2021-12'}
       >
         {'>'}
       </button>

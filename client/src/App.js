@@ -28,7 +28,7 @@ const MONTHS = [
 export default function App() {
   dotenv.config();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [periods, setPeriods] = useState([]);
   const [movements, setMovements] = useState({ length: 0, transactions: [] });
   const [filteredMovements, setFilteredMovements] = useState({ length: 0, transactions: [] });
@@ -43,6 +43,7 @@ export default function App() {
   const [editType, setEditType] = useState('');
 
   useEffect(() => {
+    setIsLoading(true);
     const p = [];
     const today = new Date();
     const thisYear = today.getYear() + 1900;
@@ -169,11 +170,9 @@ export default function App() {
           <h3 align="center">Bootcamp Full Stack - Desafio Final</h3>
           <h4 align="center">Controle Finaceiro Pessoal</h4>
           {isLoading && <Spinner></Spinner>}
-          {currentPeriod !== '' && (
-            <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
-              {periods}
-            </Navigator>
-          )}
+          <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
+            {periods}
+          </Navigator>
           <Balance>{{ qtMovements, credit, debit }}</Balance>
           <Functions onSearch={handleSearch} onAddTransaction={handleInsert}>
             {currentFilter}
