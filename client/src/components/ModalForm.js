@@ -151,62 +151,60 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
   };
 
   return (
-    <div style={{ zIndex: 1200, display: 'none' }}>
-      <Modal isOpen={true} style={modalStyles}>
-        <div style={styles.flexRow}>
-          <span style={styles.title}>{`${editType === 'I' ? 'Inclus' : 'Alteraç'}ão de lançamento`}</span>
-          <button className="waves-effect waves-lights btn red dark-4" onClick={handleModalClose}>
-            X
-          </button>
+    <Modal disablePortal isOpen={true} style={modalStyles}>
+      <div style={styles.flexRow}>
+        <span style={styles.title}>{`${editType === 'I' ? 'Inclus' : 'Alteraç'}ão de lançamento`}</span>
+        <button className="waves-effect waves-lights btn red dark-4" onClick={handleModalClose}>
+          X
+        </button>
+      </div>
+      <form onSubmit={handleFormSubmit}>
+        <div style={{ border: '1px solid lightgray', padding: '10px', marginBottom: '30px' }}>
+          <div style={styles.radio}>
+            <label>
+              <input name="radioDespesaReceita" type="radio" value="-" checked={type === '-'} disabled={editType === 'E'} onChange={handleTypeChange} />
+              <span style={styles.despesa}>Despesa</span>
+            </label>
+            <label style={{ marginLeft: '60px' }}>
+              <input name="radioDespesaReceita" type="radio" value="+" checked={type === '+'} disabled={editType === 'E'} onChange={handleTypeChange} />
+              <span style={styles.receita}>Receita</span>
+            </label>
+          </div>
+          <div className="input-field">
+            <input id="inputDescription" type="text" value={description} onChange={handleDescription} />
+            <label className="active" htmlFor="inputDescription">
+              Descrição:
+            </label>
+          </div>
+          <div className="input-field">
+            <input id="inputCategory" type="text" value={category} onChange={handleCategory} />
+            <label className="active" htmlFor="inputCategory">
+              Categoria:
+            </label>
+          </div>
+          <div style={styles.data}>
+            <div className="input-field" style={{ marginRight: '20px' }}>
+              <input id="inputValue" type="number" value={value} style={{ textAlign: 'right' }} onChange={handleValue} />
+              <label className="active" htmlFor="inputValue">
+                Valor:
+              </label>
+            </div>
+            <div className="input-field">
+              <input id="inputDate" type="date" value={date} onChange={handleDate} />
+              <label className="active" htmlFor="inputDate">
+                Data:
+              </label>
+            </div>
+          </div>
         </div>
-        <form onSubmit={handleFormSubmit}>
-          <div style={{ border: '1px solid lightgray', padding: '10px', marginBottom: '30px' }}>
-            <div style={styles.radio}>
-              <label>
-                <input name="radioDespesaReceita" type="radio" value="-" checked={type === '-'} disabled={editType === 'E'} onChange={handleTypeChange} />
-                <span style={styles.despesa}>Despesa</span>
-              </label>
-              <label style={{ marginLeft: '60px' }}>
-                <input name="radioDespesaReceita" type="radio" value="+" checked={type === '+'} disabled={editType === 'E'} onChange={handleTypeChange} />
-                <span style={styles.receita}>Receita</span>
-              </label>
-            </div>
-            <div className="input-field">
-              <input id="inputDescription" type="text" value={description} onChange={handleDescription} />
-              <label className="active" htmlFor="inputDescription">
-                Descrição:
-              </label>
-            </div>
-            <div className="input-field">
-              <input id="inputCategory" type="text" value={category} onChange={handleCategory} />
-              <label className="active" htmlFor="inputCategory">
-                Categoria:
-              </label>
-            </div>
-            <div style={styles.data}>
-              <div className="input-field" style={{ marginRight: '20px' }}>
-                <input id="inputValue" type="number" value={value} style={{ textAlign: 'right' }} onChange={handleValue} />
-                <label className="active" htmlFor="inputValue">
-                  Valor:
-                </label>
-              </div>
-              <div className="input-field">
-                <input id="inputDate" type="date" value={date} onChange={handleDate} />
-                <label className="active" htmlFor="inputDate">
-                  Data:
-                </label>
-              </div>
-            </div>
-          </div>
-          <div style={styles.flexRow}>
-            <button className="waves-effect waves-light btn" disabled={errorMessage.trim() !== ''}>
-              Salvar
-            </button>
-            <span style={styles.errorMessage}>{errorMessage}</span>
-          </div>
-        </form>
-      </Modal>
-    </div>
+        <div style={styles.flexRow}>
+          <button className="waves-effect waves-light btn" disabled={errorMessage.trim() !== ''}>
+            Salvar
+          </button>
+          <span style={styles.errorMessage}>{errorMessage}</span>
+        </div>
+      </form>
+    </Modal>
   );
 }
 
@@ -219,6 +217,7 @@ const modalStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
   },
+  overlay: { zIndex: 1000 },
 };
 
 const styles = {

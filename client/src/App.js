@@ -164,10 +164,10 @@ export default function App() {
 
   return (
     <>
-      <div style={styles.flexRow}>
-        <div style={styles.topDiv}>
-          <h3>Bootcamp Full Stack - Desafio Final</h3>
-          <h4>Controle Finaceiro Pessoal</h4>
+      <div style={styles.flexRow} id="mainform">
+        <div className="container" style={styles.topDiv}>
+          <h3 align="center">Bootcamp Full Stack - Desafio Final</h3>
+          <h4 align="center">Controle Finaceiro Pessoal</h4>
           {isLoading && <Spinner></Spinner>}
           {currentPeriod !== '' && (
             <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
@@ -180,18 +180,16 @@ export default function App() {
           </Functions>
         </div>
         {movements.length > 0 && (
-          <div style={styles.bottomDiv}>
+          <div className="container" style={styles.bottomDiv}>
             <Movements onEditClick={handleEdit} onDeleteClick={handleDelete}>
               {filteredMovements}
             </Movements>
           </div>
         )}
         {isEditting && (
-          <div style={{ zIndex: 10, position: 'fixed' }}>
-            <ModalForm editType={editType} onSave={handleSave} onCancel={handleFormClosed}>
-              {transaction}
-            </ModalForm>
-          </div>
+          <ModalForm editType={editType} onSave={handleSave} onCancel={handleFormClosed}>
+            {transaction}
+          </ModalForm>
         )}
       </div>
     </>
@@ -205,20 +203,24 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '5px',
-    border: '1px solid lightgray',
+    border_: '1px solid lightgray',
   },
+
   topDiv: {
+    alignItems: 'center',
+    justifyContent: 'center',
     position: 'fixed',
     top: '0px',
     backgroundColor: '#FFF',
     zIndex: 1,
     paddingTop: '5px',
     height: '350px',
-    border: '1px solid lightgray',
+    border_: '1px solid lightgray',
   },
+
   bottomDiv: {
     zIndex: 0,
     paddingTop: '350px',
-    border: '1px solid lightgray',
+    border_: '1px solid lightgray',
   },
 };
