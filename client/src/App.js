@@ -65,7 +65,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect [currentPeriod, refresh]');
+    //console.log('useEffect [currentPeriod, refresh]');
     setIsLoading(true);
 
     const getPeriod = async () => {
@@ -79,7 +79,7 @@ export default function App() {
   }, [currentPeriod, refresh]);
 
   useEffect(() => {
-    console.log('useEffect [currentFilter, movements]');
+    //console.log('useEffect [currentFilter, movements]');
     let transactions;
 
     if (currentFilter.trim() === '') {
@@ -162,32 +162,63 @@ export default function App() {
     setIsEditting(false);
   };
 
-  // *********
-
   return (
-    <div className="container" align="center" id="Panel">
-      <h3>Bootcamp Full Stack - Desafio Final</h3>
-      <h4>Controle Finaceiro Pessoal</h4>
-      {isLoading && <Spinner></Spinner>}
-      {currentPeriod && (
-        <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
-          {periods}
-        </Navigator>
-      )}
-      <Balance>{{ qtMovements, credit, debit }}</Balance>
-      <Functions onSearch={handleSearch} onAddTransaction={handleInsert}>
-        {currentFilter}
-      </Functions>
-      {movements.length > 0 && (
-        <Movements onEditClick={handleEdit} onDeleteClick={handleDelete}>
-          {filteredMovements}
-        </Movements>
-      )}
-      {isEditting && (
-        <ModalForm editType={editType} onSave={handleSave} onCancel={handleFormClosed}>
-          {transaction}
-        </ModalForm>
-      )}
-    </div>
+    <>
+      <div style={styles.flexRow}>
+        <div style={styles.topDiv}>
+          <h3>Bootcamp Full Stack - Desafio Final</h3>
+          <h4>Controle Finaceiro Pessoal</h4>
+          {isLoading && <Spinner></Spinner>}
+          {currentPeriod !== '' && (
+            <Navigator period={currentPeriod} onChangePeriod={handleChangePeriod}>
+              {periods}
+            </Navigator>
+          )}
+          <Balance>{{ qtMovements, credit, debit }}</Balance>
+          <Functions onSearch={handleSearch} onAddTransaction={handleInsert}>
+            {currentFilter}
+          </Functions>
+        </div>
+        {movements.length > 0 && (
+          <div style={styles.bottomDiv}>
+            <Movements onEditClick={handleEdit} onDeleteClick={handleDelete}>
+              {filteredMovements}
+            </Movements>
+          </div>
+        )}
+        {isEditting && (
+          <div style={{ zIndex: 10, position: 'fixed' }}>
+            <ModalForm editType={editType} onSave={handleSave} onCancel={handleFormClosed}>
+              {transaction}
+            </ModalForm>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
+
+const styles = {
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '5px',
+    border: '1px solid lightgray',
+  },
+  topDiv: {
+    position: 'fixed',
+    top: '0px',
+    backgroundColor: '#FFF',
+    zIndex: 1,
+    paddingTop: '5px',
+    height: '350px',
+    border: '1px solid lightgray',
+  },
+  bottomDiv: {
+    zIndex: 0,
+    paddingTop: '350px',
+    border: '1px solid lightgray',
+  },
+};

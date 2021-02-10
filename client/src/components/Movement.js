@@ -15,7 +15,7 @@ export default function Movement({ children: transaction, onEditClick, onDeleteC
 
   return (
     <div key={transaction._id} style={style}>
-      <div style={styles.flexRow2}>
+      <div style={styles.transaction}>
         <div style={styles.day}>
           <span>{transaction.day < 10 ? '0' + transaction.day : transaction.day}</span>
         </div>
@@ -42,19 +42,16 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    flexWrap: 'wrap',
     justifyContent: 'space-between',
     border: '1px solid lightgray',
     borderRadius: '5px',
     marginBottom: '5px',
   },
 
-  flexRow2: {
+  transaction: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'left',
   },
 
   day: {

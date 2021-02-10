@@ -151,7 +151,7 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
   };
 
   return (
-    <div style={styles.form}>
+    <div style={{ zIndex: 1200, display: 'none' }}>
       <Modal isOpen={true} style={modalStyles}>
         <div style={styles.flexRow}>
           <span style={styles.title}>{`${editType === 'I' ? 'Inclus' : 'Alteraç'}ão de lançamento`}</span>
@@ -265,5 +265,5 @@ const styles = {
     fontWeight: 'bold',
   },
 
-  form: { margin: '10px', zIndex: 2 },
+  form: { margin: '10px', zIndex: 1100 },
 };
