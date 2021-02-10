@@ -55,7 +55,7 @@ const styles = {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
     },
-    overlay: { zIndex: 1200 },
+    overlay: { zIndex: 1200, border_: '1px solid lightgray' },
   },
 
   flexRow: {
@@ -63,7 +63,7 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: '40px',
+    marginBottom: '10px',
   },
 
   title: {

@@ -139,13 +139,15 @@ export default function App() {
   };
 
   const handleDelete = ({ _id }) => {
+    setIsLoading(true);
+
     const remove = async () => {
       await api.remove(_id);
+      setNeedConfirm(false);
       setRefresh(!refresh);
     };
 
     remove();
-    setNeedConfirm(false);
   };
 
   const handleSave = (type, _id, transaction) => {
