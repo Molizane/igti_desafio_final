@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default function Navigator({ children: periods, period, onChangePeriod }) {
-  const handlePeriodChange = (event) => {
-    onChangePeriod(event.target.value);
+  const handlePeriodChange = (currentTarget) => {
+    onChangePeriod(currentTarget.value);
   };
 
   const handlePreviousPeriod = () => {

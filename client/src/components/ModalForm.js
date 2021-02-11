@@ -171,26 +171,26 @@ export default function ModalForm({ children: transaction, editType, onSave, onC
             </label>
           </div>
           <div className="input-field">
-            <input id="inputDescription" type="text" value={description} onChange={handleDescription} />
+            <input id="inputDescription" type="text" autofocus required value={description} onChange={handleDescription} />
             <label className="active" htmlFor="inputDescription">
               Descrição:
             </label>
           </div>
           <div className="input-field">
-            <input id="inputCategory" type="text" value={category} onChange={handleCategory} />
+            <input id="inputCategory" type="text" autofocus required value={category} onChange={handleCategory} />
             <label className="active" htmlFor="inputCategory">
               Categoria:
             </label>
           </div>
           <div style={styles.data}>
             <div className="input-field" style={{ marginRight: '20px' }}>
-              <input id="inputValue" type="number" value={value} style={{ textAlign: 'right' }} onChange={handleValue} />
+              <input id="inputValue" type="number" autofocus required value={value} style={{ textAlign: 'right' }} onChange={handleValue} />
               <label className="active" htmlFor="inputValue">
                 Valor:
               </label>
             </div>
             <div className="input-field">
-              <input id="inputDate" type="date" value={date} onChange={handleDate} />
+              <input id="inputDate" type="date" autofocus required value={date} onChange={handleDate} />
               <label className="active" htmlFor="inputDate">
                 Data:
               </label>

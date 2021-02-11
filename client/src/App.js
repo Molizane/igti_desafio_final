@@ -11,20 +11,7 @@ import ModalForm from './components/ModalForm.js';
 import Spinner from './components/Spinner.js';
 import ModalDialog from './components/ModalDialog.js';
 
-const MONTHS = [
-  { monthName: 'Jan' },
-  { monthName: 'Fev' },
-  { monthName: 'Mar' },
-  { monthName: 'Abr' },
-  { monthName: 'Mai' },
-  { monthName: 'Jun' },
-  { monthName: 'Jul' },
-  { monthName: 'Ago' },
-  { monthName: 'Set' },
-  { monthName: 'Out' },
-  { monthName: 'Nov' },
-  { monthName: 'Dez' },
-];
+const MONTHS = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
 export default function App() {
   dotenv.config();
@@ -56,7 +43,7 @@ export default function App() {
     for (let year = 2019; year <= 2021; year++) {
       for (let month = 1; month <= 12; month++) {
         const period = `${year}-${month < 10 ? '0' + month : month}`;
-        const { monthName } = MONTHS[month - 1];
+        const monthName = MONTHS[month - 1];
         const reg = { title: `${monthName}/${year}`, period };
         p.push(reg);
 
@@ -193,7 +180,7 @@ export default function App() {
             {currentFilter}
           </Functions>
         </div>
-        {movements.length > 0 && (
+        {movements.length && (
           <div className="container" style={styles.bottomDiv}>
             <Movements onEditClick={handleEdit} onDeleteClick={handleConfirmDelete}>
               {filteredMovements}
